@@ -1,0 +1,128 @@
+import discord
+import math
+from discord.ext import commands
+
+client = commands.Bot(command_prefix = '.|.') #isli lang as kung ano mayad
+client.remove_command('help')
+
+@client.event
+async def on_ready():
+	print('Bot is ready.')
+
+
+
+@client.command(aliases=['help'])
+async def _help(ctx):
+	helpScr = discord.Embed(title = 'Help', description = f'`Bot Prefix: .|.`\n`🖕 Elementary Arithmetics`\nadd   sub   mul   div\n\n\n`🖕 Trigonometry`\nsin   arcsin   cos   arccon   tan   arctan   radtodeg   degtorad\n\n\n`🖕 Logarithm & Exponents`\nlogE   log10   expo',colour = discord.Colour.from_rgb(0, 255, 0)) 
+	await ctx.send(embed = helpScr)
+
+@client.command()
+async def add(ctx, x:float, y:float):
+	answer = x + y
+	ans_em = discord.Embed(title = 'Addition', description = f'Question: {x} + {y}\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 13, 17))
+	
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def sub(ctx, x:float, y:float):
+	answer = x - y
+	ans_em = discord.Embed(title = 'Subtraction', description = f'Question: {x} - {y}\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 13, 17)),
+	
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def mul(ctx, x:float, y:float):
+	answer = x * y
+	ans_em = discord.Embed(title = 'Multiplication', description = f'Question: {x} * {y}\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 13, 17))
+	
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def div(ctx, x:float, y:float):
+	if y==0:
+		ans_em = discord.Embed(title = 'Division', description = f'Question: {x} / {y}\n\nAnswer: Syntax Error', colour = discord.Colour.from_rgb(255, 13, 17))
+	
+	else:
+		answer = x / y
+		ans_em = discord.Embed(title = 'Division', description = f'Question: {x} / {y}\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 13, 17))
+	
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def sin(ctx, z:float):
+	answer = math.sin(z)
+	ans_em = discord.Embed(title='Sine', description = f'Question: sin({z} radian/s)\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 165, 0))
+
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def cos(ctx, z:float):
+	answer = math.cos(z)
+	ans_em = discord.Embed(title='Cosine', description = f'Question: cos({z} radian/s)\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 165, 0))
+
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def tan(ctx, z:float):
+	answer = math.tan(z)
+	ans_em = discord.Embed(title='Tangent', description = f'Question: tan({z} radian/s)\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 165, 0))
+
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def arcsin(ctx, z:float):
+	if -1<=z and z<=1:
+		answer = math.asin(z)
+		ans_em = discord.Embed(title='Arc Sine', description = f'Question: arcsin({z} radian/s)\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 165, 0))
+
+	else:
+		ans_em = discord.Embed(title='Arc Sine', description = f'Question: arcsin({z} radian/s)\n\nAnswer: Syntax Error', colour = discord.Colour.from_rgb(255, 165, 0))
+
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def arccos(ctx, z:float):
+	if -1<=z and z <=1:
+		answer = math.acos(z)
+		ans_em = discord.Embed(title='Arc Cosine', description = f'Question: arccos({z} radian/s)\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 165, 0))
+	else:
+		ans_em = discord.Embed(title='Arc Cosine', description = f'Question: arcsin({z} radian/s)\n\nAnswer: Syntax Error', colour = discord.Colour.from_rgb(255, 165, 0))
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def arctan(ctx, z:float):
+	answer = math.atan(z)
+	ans_em = discord.Embed(title='Arc Tangent', description = f'Question: arctan({z} radian/s)\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255, 165, 0))
+
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def convert(ctx, z:float, order):
+	if order=="degtorad":
+		answer=math.radians(z)
+		ans_em = discord.Embed(title='Degrees to Radians', description = f'Question: {z} degree/s\n\nAnswer: {answer} radian/s', colour = discord.Colour.from_rgb(255, 165, 0))
+		await ctx.send(embed = ans_em)
+	elif order=="radtodeg":
+		answer=math.degrees(z)
+		ans_em = discord.Embed(title='Radians to Degrees', description = f'Question: {z} radian/s\n\nAnswer: {answer} degree/s', colour = discord.Colour.from_rgb(255, 165, 0))
+		await ctx.send(embed = ans_em)
+
+@client.command()
+async def logE(ctx, z:float):
+	answer=math.log(z)
+	ans_em = discord.Embed(title='Log Base e', description = f'Question: logₑ({z})\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255,0,255))
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def log10(ctx, z:float):
+	answer=math.log10(z)
+	ans_em = discord.Embed(title='Log Base 10', description = f'Question: log({z})\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255,0,255))
+	await ctx.send(embed = ans_em)
+
+@client.command()
+async def expo(ctx, x:float, y:float):
+	answer=math.pow(x,y)
+	ans_em = discord.Embed(title='Raising to the Power of...', description = f'Question: {x}^{y}\n\nAnswer: {answer}', colour = discord.Colour.from_rgb(255,0,255))
+	await ctx.send(embed = ans_em)
+
+client.run('    ') #ja butang ang token sang bot
